@@ -10,7 +10,7 @@ brew tap LouisBrunner/valgrind
 
 Then, install `valgrind`:
 ```
-brew install LouisBrunner/valgrind
+brew install --HEAD LouisBrunner/valgrind/valgrind
 ```
 
 You can now use `valgrind` as normal.
@@ -20,5 +20,5 @@ You can now use `valgrind` as normal.
 Any `brew upgrade` will now correctly rebuild the latest `LouisBrunner/valgrind` instead of the upstream one (which doesn't support latest macOS versions).
 
 ```
-brew upgrade LouisBrunner/valgrind
+brew upgrade LouisBrunner/valgrind/valgrind
 ```
