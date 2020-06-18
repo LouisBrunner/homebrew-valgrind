@@ -20,5 +20,5 @@ You can now use `valgrind` as normal.
 Any `brew upgrade` will now correctly rebuild the latest `LouisBrunner/valgrind` instead of the upstream one (which doesn't support latest macOS versions).
 
 ```
-brew upgrade LouisBrunner/valgrind/valgrind
+brew upgrade --fetch-HEAD LouisBrunner/valgrind/valgrind
 ```
