@@ -1,5 +1,7 @@
 # homebrew-valgrind
-Homebrew Tap for Valgrind macOS
+Homebrew Tap for Valgrind macOS. 
+
+**Note that macOS 11+ and the M1 chip are currently not supported!**
 
 ## Installation
 
