@@ -1,0 +1,25 @@
+name: Test
+
+on:
+  push:
+  pull_request_target:
+  workflow_dispatch:
+
+jobs:
+  build_various_platforms:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-11, macos-12, macos-13]
+
+    runs-on: ${{ matrix.os }}
+
+    name: Test on ${{matrix.os}}
+
+    steps:
+      - name: checkout project
+        uses: actions/checkout@v3
+      - name: install formula locally
+        run: brew install --HEAD ./valgrind.rb
+      - name: upgrade formula locally
+        run: brew upgrade --fetch-HEAD ./valgrind.rb
