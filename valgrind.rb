@@ -16,10 +16,6 @@ class Valgrind < Formula
           odie "Valgrind cannot build in 32-bit using Xcode 10.14.6 or later"
         end
       end
-
-      on_arm do
-        odie "Valgrind is currently incompatible with ARM-based Macs, see https://github.com/LouisBrunner/valgrind-macos/issues/56"
-      end
     end
   end
 
