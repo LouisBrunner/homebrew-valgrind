@@ -25,5 +25,8 @@ jobs:
           cp ./valgrind.rb "$(brew --repository)/Library/Taps/local/homebrew-valgrind/Formula/valgrind.rb"
       - name: install formula locally
         run: brew install --HEAD local/valgrind/valgrind
+        env:
+          # FIXME: needed for arm64 (for now)
+          I_ACKNOWLEDGE_THIS_MIGHT_CRASH_OR_DAMAGE_MY_COMPUTER: "yes"
       - name: upgrade formula locally
         run: brew upgrade --fetch-HEAD local/valgrind/valgrind
