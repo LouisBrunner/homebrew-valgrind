@@ -19,7 +19,11 @@ jobs:
     steps:
       - name: checkout project
         uses: actions/checkout@v3
+      - name: create a dummy tap
+        run: |
+          brew tap-new local/valgrind
+          cp ./valgrind.rb "$(brew --repository)/Library/Taps/local/homebrew-valgrind/Formula/valgrind.rb"
       - name: install formula locally
-        run: brew install --HEAD ./valgrind.rb
+        run: brew install --HEAD local/valgrind/valgrind
       - name: upgrade formula locally
-        run: brew upgrade --fetch-HEAD ./valgrind.rb
+        run: brew upgrade --fetch-HEAD local/valgrind/valgrind
