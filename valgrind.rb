@@ -29,6 +29,8 @@ class Valgrind < Formula
       --prefix=#{prefix}
     ]
 
+    ENV.append "LDFLAGS", "-lSystem"
+
     if ENV["HOMEBREW_I_ACKNOWLEDGE_THIS_MIGHT_CRASH_OR_DAMAGE_MY_COMPUTER"] == "yes"
       ENV["I_ACKNOWLEDGE_THIS_MIGHT_CRASH_OR_DAMAGE_MY_COMPUTER"] = "yes"
     end
