@@ -24,6 +24,13 @@ class Valgrind < Formula
   skip_clean "lib/valgrind"
 
   def install
+    on_macos do
+      on_arm do
+        # Fully break all PSO libs otherwise
+        ENV.permit_arch_flags
+      end
+    end
+
     args = %W[
       --disable-dependency-tracking
       --prefix=#{prefix}
@@ -37,6 +44,20 @@ class Valgrind < Formula
     system "./configure", *args
     system "make"
     system "make", "install"
+  end
+
+  def post_install
+    on_macos do
+      on_arm do
+        # Make sure that our fake libdyld has the correct install_name_tool,
+        # this is done within the configure setup but overwritten by Homebrew
+        # so we write it back **again**.
+        system "install_name_tool", "-id", "/usr/lib/system/libdyld.dylib", prefix/"libexec/valgrind/libmydyld.so"
+        system "codesign", "--force", "--sign", "-", prefix/"libexec/valgrind/libmydyld.so"
+        system "install_name_tool", "-id", "/usr/lib/libSystem.B.dylib", prefix/"libexec/valgrind/libmySystem.so"
+        system "codesign", "--force", "--sign", "-", prefix/"libexec/valgrind/libmySystem.so"
+      end
+    end
   end
 
   test do
