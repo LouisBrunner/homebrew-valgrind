@@ -39,6 +39,17 @@ class Valgrind < Formula
     system "make", "install"
   end
 
+  def post_install
+    on_macos do
+      on_arm do
+        # Make sure that our fake libdyld has the correct install_name_tool,
+        # this is done within the configure setup but overwritten by Homebrew
+        # so we write it back **again**.
+        system "install_name_tool", "-id", "/usr/lib/system/libdyld.dylib", prefix/"libexec/valgrind/libmydyld.so"
+      end
+    end
+  end
+
   test do
     system "#{bin}/valgrind", "ls", "-l"
   end

@@ -10,7 +10,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-13, macos-14, macos-15, macos-15-intel]
+        os: [macos-14, macos-15, macos-15-intel, macos-26]
 
     runs-on: ${{ matrix.os }}
 
@@ -30,3 +30,6 @@ jobs:
           HOMEBREW_I_ACKNOWLEDGE_THIS_MIGHT_CRASH_OR_DAMAGE_MY_COMPUTER: yes
       - name: upgrade formula locally
         run: brew upgrade --fetch-HEAD local/valgrind/valgrind
+        env:
+          # FIXME: needed for arm64 (for now)
+          HOMEBREW_I_ACKNOWLEDGE_THIS_MIGHT_CRASH_OR_DAMAGE_MY_COMPUTER: yes
