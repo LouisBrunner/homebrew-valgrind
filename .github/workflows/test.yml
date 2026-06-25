@@ -5,6 +5,10 @@ on:
   pull_request_target:
   workflow_dispatch:
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build_various_platforms:
     strategy:
@@ -18,7 +22,7 @@ jobs:
 
     steps:
       - name: checkout project
-        uses: actions/checkout@v3
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
       - name: create a dummy tap
         run: |
           brew tap-new local/valgrind
@@ -26,10 +30,10 @@ jobs:
       - name: install formula locally
         run: brew install --HEAD local/valgrind/valgrind
         env:
-          # FIXME: needed for arm64 (for now)
+          # FIXME: needed for macos-15 (for now)
           HOMEBREW_I_ACKNOWLEDGE_THIS_MIGHT_CRASH_OR_DAMAGE_MY_COMPUTER: yes
       - name: upgrade formula locally
         run: brew upgrade --fetch-HEAD local/valgrind/valgrind
         env:
-          # FIXME: needed for arm64 (for now)
+          # FIXME: needed for macos-15 (for now)
           HOMEBREW_I_ACKNOWLEDGE_THIS_MIGHT_CRASH_OR_DAMAGE_MY_COMPUTER: yes
