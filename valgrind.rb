@@ -12,7 +12,7 @@ class Valgrind < Formula
 
     on_macos do
       on_intel do
-        if :arch == :x86 and Xcode.version >= "10.14.6" then
+        if :arch == :x86 && Xcode.version >= "10.14.6"
           odie "Valgrind cannot build in 32-bit using Xcode 10.14.6 or later"
         end
       end
@@ -24,11 +24,9 @@ class Valgrind < Formula
   skip_clean "lib/valgrind"
 
   def install
-    on_macos do
-      on_arm do
-        # Fully break all PSO libs otherwise
-        ENV.permit_arch_flags
-      end
+    if OS.mac? && Hardware::CPU.arm?
+      # Fully break all PSO libs otherwise
+      ENV.permit_arch_flags
     end
 
     args = %W[
@@ -47,20 +45,18 @@ class Valgrind < Formula
   end
 
   def post_install
-    on_macos do
-      on_arm do
-        # Make sure that our fake libdyld has the correct install_name_tool,
-        # this is done within the configure setup but overwritten by Homebrew
-        # so we write it back **again**.
-        system "install_name_tool", "-id", "/usr/lib/system/libdyld.dylib", prefix/"libexec/valgrind/libmydyld.so"
-        system "codesign", "--force", "--sign", "-", prefix/"libexec/valgrind/libmydyld.so"
-        system "install_name_tool", "-id", "/usr/lib/libSystem.B.dylib", prefix/"libexec/valgrind/libmySystem.so"
-        system "codesign", "--force", "--sign", "-", prefix/"libexec/valgrind/libmySystem.so"
-      end
+    if OS.mac? && Hardware::CPU.arm?
+      # Make sure that our fake libdyld has the correct install_name_tool,
+      # this is done within the configure setup but overwritten by Homebrew
+      # so we write it back **again**.
+      system "install_name_tool", "-id", "/usr/lib/system/libdyld.dylib", prefix/"libexec/valgrind/libmydyld.so"
+      system "codesign", "--force", "--sign", "-", prefix/"libexec/valgrind/libmydyld.so"
+      system "install_name_tool", "-id", "/usr/lib/libSystem.B.dylib", prefix/"libexec/valgrind/libmySystem.so"
+      system "codesign", "--force", "--sign", "-", prefix/"libexec/valgrind/libmySystem.so"
     end
   end
 
   test do
-    system "#{bin}/valgrind", "ls", "-l"
+    system bin/"valgrind", "ls", "-l"
   end
 end

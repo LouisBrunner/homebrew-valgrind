@@ -8,11 +8,12 @@ assignees: ""
 
 <!--
   IMPORTANT: only post issues related to the brew formula for valgrind-macos (e.g. failure during installation, upgrade, etc.)
-  Any issue related to valgrind itself (e.g. valgrind not working as expected or not being compatible with your OS version or architecture) should be posted on the upstream repository: https://github.com/LouisBrunner/valgrind-macos/issues
+  Any issue related to valgrind itself should be posted on the upstream repository: https://github.com/LouisBrunner/valgrind-macos/issues
+  For example, valgrind not working as expected or not being compatible with your OS version or architecture).
   If your issue is not related to the brew formula, it will be closed.
 -->
 
-### Context
+## Context
 
 <!-- quickly describe what the issue is and include any logs from your compilation/valgrind output -->
 
@@ -23,15 +24,15 @@ Brew command line and its output:
 # paste the output here
 ```
 
-#### What went wrong?
+### What went wrong?
 
 <!-- include any steps to reproduce, including exact commands you ran -->
 
-#### What did you expect to happen?
+### What did you expect to happen?
 
 <!-- include if relevant -->
 
-### Information
+## Information
 
 - macOS architecture (`uname -m`): amd64/arm64
 - macOS version (`sw_vers`): X.Y
