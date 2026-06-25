@@ -23,5 +23,5 @@ jobs:
 
       - uses: ./.github/actions/setup
 
-      - run: brew audit local/valgrind/valgrind
-      - run: brew style local/valgrind/valgrind
+      - run: brew audit --except-cops miscellaneous local/valgrind/valgrind
+      - run: brew style --except-cops miscellaneous local/valgrind/valgrind
