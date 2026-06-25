@@ -1,0 +1,13 @@
+name: Setup
+description: Checkout and create a dummy tap
+
+runs:
+  using: composite
+  steps:
+    - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+
+    - name: create a dummy tap
+      shell: bash
+      run: |
+        brew tap-new local/valgrind
+        cp ./valgrind.rb "$(brew --repository)/Library/Taps/local/homebrew-valgrind/Formula/valgrind.rb"
